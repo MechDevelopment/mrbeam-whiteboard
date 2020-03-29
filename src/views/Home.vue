@@ -1,7 +1,5 @@
 <template>
-  <div>
-    Привет
-  </div>
+  <canvas id="canvas" resize="true" style="background: blue;"></canvas>
 </template>
 
 <script>
