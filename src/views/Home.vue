@@ -18,7 +18,7 @@
 
 <script>
 import { mapState } from "vuex";
-import whiteboard from "../scripts/whiteboard"
+import Whiteboard from "../scripts/whiteboard";
 export default {
   name: "Home",
 
@@ -27,12 +27,16 @@ export default {
   },
 
   data: () => ({
-    whiteboard: whiteboard,
+    whiteboard: undefined,
     canvas_size: undefined
   }),
 
   created() {
     this.canvas_size = `height: ${this.size}px; width: ${this.size}px`;
+  },
+
+  mounted() {
+    this.whiteboard = new Whiteboard();
   },
 
   watch: {
