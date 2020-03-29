@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div v-resize="onResize" class="fill-height">
+    <div v-resize="onResize" class="d-flex fill-height justify-center">
       <router-view></router-view>
     </div>
   </v-app>
@@ -19,8 +19,12 @@ export default {
 
   methods: {
     onResize() {
-      // Определение размера доски в зависимости от размера окна 
-      this.$store.commit("updateSize", window.innerHeight);
+      // Определение размера доски в зависимости от размера окна
+      if (window.innerHeight < window.innerWidth) {
+        this.$store.commit("updateSize", window.innerHeight);
+      } else {
+        this.$store.commit("updateSize", window.innerWidth);
+      }
     }
   }
 };
