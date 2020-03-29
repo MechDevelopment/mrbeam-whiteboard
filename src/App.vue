@@ -14,11 +14,13 @@ export default {
 
   created() {
     paper.install(window);
+    this.onResize()
   },
-  
+
   methods: {
     onResize() {
-      console.log("Resize");
+      // Определение размера доски в зависимости от размера окна 
+      this.$store.commit("updateSize", window.innerHeight);
     }
   }
 };
