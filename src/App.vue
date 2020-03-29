@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div v-resize="onResize" class="d-flex fill-height justify-center">
+    <div v-resize="onResize" class="d-flex fill-height justify-center align-center">
       <router-view></router-view>
     </div>
   </v-app>
