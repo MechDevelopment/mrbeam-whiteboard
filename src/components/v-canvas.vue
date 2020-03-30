@@ -48,7 +48,10 @@ export default {
     onResize() {
       this.canvas_size = `height: ${this.size}px; width: ${this.size}px`;
 
-      this.whiteboard.resize(this.size, this.last)
+      if (this.whiteboard) {
+        this.whiteboard.resize(this.size, this.last);
+      }
+
       this.last = this.size;
     }
   }
