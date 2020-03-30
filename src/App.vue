@@ -1,10 +1,11 @@
 <template>
   <v-app>
-    <v-content>
-      <div
-        v-resize="onResize"
-        class="resizer d-flex fill-height justify-center align-center"
-      >
+    <v-content
+    v-resize="onResize"
+      style="background: #110f0f"
+      class="d-flex align-center"
+    >
+      <div v-resize="onResize" class="d-flex fill-height justify-center">
         <VCanvas />
         <VTools />
       </div>
@@ -50,9 +51,6 @@ export default {
 <style lang="sass">
 #canvas
   background: white
-
-.resizer
-  background: #110f0f
 
 html
   -ms-overflow-style: none
