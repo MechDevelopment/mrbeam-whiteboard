@@ -2,7 +2,7 @@
   <v-app>
     <div
       v-resize="onResize"
-      class="resizer d-flex fill-height justify-center align-center"
+      class="resizer d-flex justify-center align-center"
     >
       <VCanvas />
       <VTools />
@@ -48,6 +48,7 @@ export default {
 
 .resizer
   background: #110f0f
+  height: 100%
 
 html
   -ms-overflow-style: none
