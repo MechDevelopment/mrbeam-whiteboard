@@ -5,12 +5,14 @@
       class="resizer d-flex fill-height justify-center align-center"
     >
       <VCanvas />
+      <VTools />
     </div>
   </v-app>
 </template>
 
 <script>
 import VCanvas from "./components/v-canvas";
+import VTools from "./components/v-tools";
 import paper from "paper";
 
 export default {
@@ -32,7 +34,8 @@ export default {
     }
   },
   components:{
-    VCanvas
+    VCanvas,
+    VTools
   }
 };
 </script>

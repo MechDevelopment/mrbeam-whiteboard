@@ -20,8 +20,6 @@
 import { mapState } from "vuex";
 import Whiteboard from "../scripts/whiteboard";
 export default {
-  name: "Home",
-
   computed: {
     ...mapState(["size"])
   },
