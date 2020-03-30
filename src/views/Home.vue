@@ -1,8 +1,8 @@
 <template>
   <canvas
     id="canvas"
+    class="sketchy"
     resize="true"
-    style="background: #fdf1f3;"
     :style="canvas_size"
     v-on:mousedown.prevent="whiteboard.start"
     v-on:touchstart.prevent="whiteboard.start"
@@ -13,7 +13,8 @@
     v-on:mouseenter.prevent="whiteboard.enter"
     v-on:mouseleave.prevent="whiteboard.leave"
     v-on:touchcancel.prevent="whiteboard.leave"
-  ></canvas>
+  >
+  </canvas>
 </template>
 
 <script>

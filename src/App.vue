@@ -1,6 +1,9 @@
 <template>
   <v-app>
-    <div v-resize="onResize" class="d-flex fill-height justify-center align-center">
+    <div
+      v-resize="onResize"
+      class="resizer d-flex fill-height justify-center align-center"
+    >
       <router-view></router-view>
     </div>
   </v-app>
@@ -14,18 +17,33 @@ export default {
 
   created() {
     paper.install(window);
-    this.onResize()
+    this.onResize();
   },
 
   methods: {
     onResize() {
       // Определение размера доски в зависимости от размера окна
       if (window.innerHeight < window.innerWidth) {
-        this.$store.commit("updateSize", window.innerHeight);
+        this.$store.commit("updateSize", window.innerHeight - 5);
       } else {
-        this.$store.commit("updateSize", window.innerWidth);
+        this.$store.commit("updateSize", window.innerWidth - 5);
       }
     }
   }
 };
 </script>
+
+<style lang="sass">
+#canvas
+  background: white
+
+.resizer
+  background: #110f0f
+
+html
+  -ms-overflow-style: none
+  scrollbar-width: none
+
+::-webkit-scrollbar
+  width: 0px
+</style>
