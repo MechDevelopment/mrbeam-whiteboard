@@ -15,6 +15,8 @@ import VCanvas from "./components/v-canvas";
 import VTools from "./components/v-tools";
 import paper from "paper";
 
+const BLACK = "#111010"
+
 export default {
   name: "App",
 
@@ -47,7 +49,7 @@ export default {
   background: white
 
 .resizer
-  background: #110f0f
+  background: BLACK
   height: 100%
 
 html

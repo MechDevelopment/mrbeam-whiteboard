@@ -31,7 +31,7 @@ export default class Whiteboard {
   start() {
     this.path = new Path();
 
-    this.path.strokeColor = new Color("#110f0f");
+    this.path.strokeColor = new Color("#111010");
     this.path.strokeCap = "round";
     this.path.strokeJoin = "round";
     this.path.strokeWidth = 3;
