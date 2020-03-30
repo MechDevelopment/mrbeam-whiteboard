@@ -15,6 +15,19 @@ export default class Whiteboard {
     project.clear();
   }
 
+  resize(size, last) {
+    view.viewSize = new Size(size, size);
+
+    let scale = size / last;
+    
+    const picture = project.activeLayer.children;
+    for (let i = 0; i < picture.length; i++) {
+      picture[i].position.x *= scale;
+      picture[i].position.y *= scale;
+      picture[i].scale(scale);
+    }
+  }
+
   start() {
     this.path = new Path();
 

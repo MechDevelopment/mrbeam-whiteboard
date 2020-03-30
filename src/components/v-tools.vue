@@ -27,7 +27,7 @@ import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["size", "whiteboard"])
+    ...mapState(["size", "resizing", "whiteboard"])
   },
 
   data: () => ({
@@ -42,7 +42,7 @@ export default {
   },
 
   watch: {
-    size(value) {
+    resizing() {
       this.onResize();
     }
   },

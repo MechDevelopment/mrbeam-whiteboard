@@ -25,20 +25,31 @@ export default {
   },
 
   data: () => ({
-    canvas_size: undefined
+    canvas_size: undefined,
+    last_size: 0
   }),
 
   created() {
-    this.canvas_size = `height: ${this.size}px; width: ${this.size}px`;
+    this.onResize();
   },
 
   mounted() {
+    this.last = this.size;
     this.$store.commit("createWhiteboard", new Whiteboard());
   },
 
   watch: {
     size(value) {
-      this.canvas_size = `height: ${value}px; width: ${value}px`;
+      this.onResize();
+    }
+  },
+
+  methods: {
+    onResize() {
+      this.canvas_size = `height: ${this.size}px; width: ${this.size}px`;
+
+      this.whiteboard.resize(this.size, this.last)
+      this.last = this.size;
     }
   }
 };
