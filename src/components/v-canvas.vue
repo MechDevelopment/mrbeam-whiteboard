@@ -13,8 +13,7 @@
     v-on:mouseenter.prevent="whiteboard.enter"
     v-on:mouseleave.prevent="whiteboard.leave"
     v-on:touchcancel.prevent="whiteboard.leave"
-  >
-  </canvas>
+  ></canvas>
 </template>
 
 <script>

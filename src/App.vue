@@ -4,12 +4,13 @@
       v-resize="onResize"
       class="resizer d-flex fill-height justify-center align-center"
     >
-      <router-view></router-view>
+      <VCanvas />
     </div>
   </v-app>
 </template>
 
 <script>
+import VCanvas from "./components/v-canvas";
 import paper from "paper";
 
 export default {
@@ -29,6 +30,9 @@ export default {
         this.$store.commit("updateSize", window.innerWidth - 5);
       }
     }
+  },
+  components:{
+    VCanvas
   }
 };
 </script>
