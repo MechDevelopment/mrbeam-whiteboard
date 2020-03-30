@@ -5,10 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    size: undefined
+    size: undefined,
+    whiteboard: undefined
   },
   
   mutations: {
-    updateSize: (state, size) => { state.size = size; }
+    updateSize: (state, size) => { state.size = size; },
+    createWhiteboard: (state, whiteboard) => { state.whiteboard = whiteboard; }
   }
 });

@@ -7,6 +7,14 @@ export default class Whiteboard {
     this.tool = "pen";
   }
 
+  setTool(value) {
+    this.tool = value;
+  }
+
+  clear() {
+    project.clear();
+  }
+
   start() {
     this.path = new Path();
 

@@ -21,11 +21,10 @@ import { mapState } from "vuex";
 import Whiteboard from "../scripts/whiteboard";
 export default {
   computed: {
-    ...mapState(["size"])
+    ...mapState(["size", "whiteboard"])
   },
 
   data: () => ({
-    whiteboard: undefined,
     canvas_size: undefined
   }),
 
@@ -34,7 +33,7 @@ export default {
   },
 
   mounted() {
-    this.whiteboard = new Whiteboard();
+    this.$store.commit("createWhiteboard", new Whiteboard());
   },
 
   watch: {

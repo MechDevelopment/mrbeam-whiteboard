@@ -27,12 +27,12 @@ import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState(["size"])
+    ...mapState(["size", "whiteboard"])
   },
 
   data: () => ({
     color_pen: "#110f0f",
-    color_eraser: "#110f0f",
+    color_eraser: "none",
     left_style: undefined,
     right_style: undefined
   }),
@@ -53,6 +53,24 @@ export default {
       const bottom = (window.innerHeight - this.size) / 2 + 5;
       this.left_style = `left: ${left}px; ` + `bottom: ${bottom}px; `;
       this.right_style = `right: ${left}px; ` + `bottom: ${bottom}px; `;
+    },
+
+    clickPen() {
+      this.color_pen = "#110f0f";
+      this.color_eraser = "none";
+      this.whiteboard.setTool("pen");
+    },
+
+    clickEraser() {
+      this.color_pen = "none";
+      this.color_eraser = "#110f0f";
+      this.whiteboard.setTool("eraser");
+    },
+
+    clickUpload() {},
+
+    clickClear() {
+      this.whiteboard.clear();
     }
   }
 };
