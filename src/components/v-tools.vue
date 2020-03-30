@@ -17,8 +17,13 @@
       </v-btn>
     </div>
 
+    <!-- TOP LEFT -->
+    <div class="tools ml-2" :style="top_left_style">
+      <p class="message">{{ this.message }}</p>
+    </div>
+
     <!-- TOP RIGHT -->
-    <div class="tools" :style="top_style">
+    <div class="tools" :style="top_right_style">
       <v-btn @click.prevent="clickClear" class="ml-4" small icon>
         <v-icon small>mdi-close-circle</v-icon>
       </v-btn>
@@ -38,9 +43,11 @@ export default {
 
   data: () => ({
     loading: false,
+    message: "",
     color_pen: BLACK,
     color_eraser: "none",
-    top_style: undefined,
+    top_left_style: undefined,
+    top_right_style: undefined,
     left_style: undefined,
     right_style: undefined
   }),
@@ -59,7 +66,8 @@ export default {
     onResize() {
       const left = (window.innerWidth - this.size) / 2 + 5;
       const bottom = (window.innerHeight - this.size) / 2 + 5;
-      this.top_style = `right: ${left}px; ` + `top: ${bottom}px; `;
+      this.top_left_style = `left: ${left}px; ` + `top: ${bottom}px; `;
+      this.top_right_style = `right: ${left}px; ` + `top: ${bottom}px; `;
       this.left_style = `left: ${left}px; ` + `bottom: ${bottom}px; `;
       this.right_style = `right: ${left}px; ` + `bottom: ${bottom}px; `;
     },
@@ -76,6 +84,10 @@ export default {
       this.whiteboard.setTool("eraser");
     },
 
+    clickClear() {
+      this.whiteboard.clear();
+    },
+
     async clickUpload() {
       this.loading = true;
       const canvasElem = document.getElementById("canvas");
@@ -90,18 +102,30 @@ export default {
         setTimeout(() => {
           console.log(blob, data);
           this.loading = false;
-        }, 700);
+          if (data.status === 404) {
+            this.createMessage("Address not found.");
+          }
+        }, 500);
       });
     },
 
-    clickClear() {
-      this.whiteboard.clear();
+    createMessage(value) {
+      this.message = value;
+      setTimeout(() => {
+        this.message = "";
+      }, 6000);
     }
   }
 };
 </script>
 
 <style lang="sass">
+@import url('https://fonts.googleapis.com/css?family=Baloo+2&display=swap')
+
+.message
+  font-family: 'Baloo 2', cursive
+  font-size: 18px
+
 .tools
   position: absolute
 </style>
