@@ -18,10 +18,10 @@ export default class Whiteboard {
   start() {
     this.path = new Path();
 
-    this.path.strokeColor = "black";
+    this.path.strokeColor = new Color("#110f0f");
     this.path.strokeCap = "round";
     this.path.strokeJoin = "round";
-    this.path.strokeWidth = 2;
+    this.path.strokeWidth = 3;
 
     if (this.tool === "eraser") {
       this.path.opacity = 0.2;

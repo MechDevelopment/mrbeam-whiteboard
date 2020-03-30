@@ -67,7 +67,19 @@ export default {
       this.whiteboard.setTool("eraser");
     },
 
-    clickUpload() {},
+    async clickUpload() {
+      const canvasElem = document.getElementById("canvas");
+      const blob = await new Promise(resolve =>
+        canvasElem.toBlob(resolve, "image/png")
+      );
+
+      await fetch("AI", {
+        method: "POST",
+        body: blob
+      }).then(data => {
+        console.log( blob, data);
+      });
+    },
 
     clickClear() {
       this.whiteboard.clear();
