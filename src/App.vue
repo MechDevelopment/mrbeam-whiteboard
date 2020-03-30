@@ -1,12 +1,14 @@
 <template>
   <v-app>
-    <div
-      v-resize="onResize"
-      class="resizer d-flex fill-height justify-center align-center"
-    >
-      <VCanvas />
-      <VTools />
-    </div>
+    <v-content>
+      <div
+        v-resize="onResize"
+        class="resizer d-flex fill-height justify-center align-center"
+      >
+        <VCanvas />
+        <VTools />
+      </div>
+    </v-content>
   </v-app>
 </template>
 
@@ -32,10 +34,13 @@ export default {
         this.$store.commit("updateSize", window.innerWidth - 5);
       }
 
-      this.$store.commit("updateResizing", window.innerHeight + window.innerWidth);
+      this.$store.commit(
+        "updateResizing",
+        window.innerHeight + window.innerWidth
+      );
     }
   },
-  components:{
+  components: {
     VCanvas,
     VTools
   }
