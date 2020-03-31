@@ -91,22 +91,22 @@ export default {
     async clickUpload() {
       this.loading = true;
       const canvasElem = document.getElementById("canvas");
-      const blob = await new Promise(resolve =>
-        canvasElem.toBlob(resolve, "image/png")
-      );
-
-      await fetch("http://mrbeam-neural.herokuapp.com/predict", {
-        method: "POST",
-        body: blob
-      }).then(data => {
-        setTimeout(() => {
-          console.log(blob, data);
-          this.loading = false;
-          if (data.status === 404) {
-            this.createMessage("Address not found.");
-          }
-        }, 500);
-      });
+      const body = canvasElem.toDataURL();
+   
+      await fetch("https://mrbeam-neural.herokuapp.com/predict", {
+        method: "post",
+        body:  JSON.stringify({data: body})
+      })
+        .then(data => data.json())
+        .then(data => {
+          setTimeout(() => {
+            console.log(data, body);
+            this.loading = false;
+            if (data.status === 404) {
+              this.createMessage("Address not found.");
+            }
+          });
+        });
     },
 
     createMessage(value) {
