@@ -95,7 +95,7 @@ export default {
         canvasElem.toBlob(resolve, "image/png")
       );
 
-      await fetch("AI", {
+      await fetch("https://mrbeam-neural.herokuapp.com/predict", {
         method: "POST",
         body: blob
       }).then(data => {
