@@ -34,10 +34,7 @@ export default {
         this.$store.commit("updateSize", window.innerWidth - 5);
       }
 
-      this.$store.commit(
-        "updateResizing",
-        window.innerHeight + window.innerWidth
-      );
+      this.$store.commit("updateResizing", Math.random());
     }
   },
   components: {

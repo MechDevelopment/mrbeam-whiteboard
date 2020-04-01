@@ -35,6 +35,8 @@
 import { mapState } from "vuex";
 
 const BLACK = "#111010";
+const SERVER_URL = "https://mrbeam-neural.herokuapp.com/predict";
+const MESSAGE_TIME = 6000;
 
 export default {
   computed: {
@@ -49,7 +51,8 @@ export default {
     top_left_style: undefined,
     top_right_style: undefined,
     left_style: undefined,
-    right_style: undefined
+    right_style: undefined,
+    timer: setTimeout(() => {})
   }),
 
   created() {
@@ -75,12 +78,20 @@ export default {
     clickPen() {
       this.color_pen = BLACK;
       this.color_eraser = "none";
+      this.$store.commit(
+        "updateCursorStyle",
+        "cursor: url('https://api.iconify.design/mdi-pen.svg?height=26') 1 25, pointer"
+      );
       this.whiteboard.setTool("pen");
     },
 
     clickEraser() {
       this.color_pen = "none";
       this.color_eraser = BLACK;
+      this.$store.commit(
+        "updateCursorStyle",
+        "cursor: url('https://api.iconify.design/mdi-eraser.svg?height=26') 8 25, pointer"
+      );
       this.whiteboard.setTool("eraser");
     },
 
@@ -91,19 +102,26 @@ export default {
     async clickUpload() {
       this.loading = true;
       const canvasElem = document.getElementById("canvas");
-      const body = canvasElem.toDataURL();
-   
-      await fetch("https://mrbeam-neural.herokuapp.com/predict", {
-        method: "post",
-        body:  JSON.stringify({data: body})
+      const imageBlob = await new Promise(resolve =>
+        canvasElem.toBlob(resolve, "image/png")
+      );
+
+      const formData = new FormData();
+      formData.append("image", imageBlob);
+
+      await fetch(SERVER_URL, {
+        method: "POST",
+        body: formData
       })
         .then(data => data.json())
         .then(data => {
           setTimeout(() => {
-            console.log(data, body);
+            console.log(data);
             this.loading = false;
             if (data.status === 404) {
               this.createMessage("Address not found.");
+            } else {
+              this.createMessage(data.class_name);
             }
           });
         });
@@ -111,21 +129,23 @@ export default {
 
     createMessage(value) {
       this.message = value;
-      setTimeout(() => {
+
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
         this.message = "";
-      }, 6000);
+      }, MESSAGE_TIME);
     }
   }
 };
 </script>
 
 <style lang="sass">
-@import url('https://fonts.googleapis.com/css?family=Baloo+2&display=swap')
+
 
 .message
-  font-family: 'Baloo 2', cursive
-  font-size: 18px
+  font-size: 14px
+  text-transform: uppercase
 
 .tools
-  position: absolute
+  position: fixed
 </style>
