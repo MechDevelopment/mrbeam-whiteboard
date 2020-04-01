@@ -139,5 +139,5 @@ export default {
   text-transform: uppercase
 
 .tools
-  position: absolute
+  position: fixed
 </style>
