@@ -35,6 +35,8 @@
 import { mapState } from "vuex";
 
 const BLACK = "#111010";
+const SERVER_URL = "https://mrbeam-neural.herokuapp.com/predict";
+const MESSAGE_TIME = 6000;
 
 export default {
   computed: {
@@ -49,7 +51,8 @@ export default {
     top_left_style: undefined,
     top_right_style: undefined,
     left_style: undefined,
-    right_style: undefined
+    right_style: undefined,
+    timer: setTimeout(() => {})
   }),
 
   created() {
@@ -91,40 +94,49 @@ export default {
     async clickUpload() {
       this.loading = true;
       const canvasElem = document.getElementById("canvas");
-      const blob = await new Promise(resolve =>
+      const imageBlob = await new Promise(resolve =>
         canvasElem.toBlob(resolve, "image/png")
       );
 
-      await fetch("AI", {
+      const formData = new FormData();
+      formData.append("image", imageBlob);
+
+      await fetch(SERVER_URL, {
         method: "POST",
-        body: blob
-      }).then(data => {
-        setTimeout(() => {
-          console.log(blob, data);
-          this.loading = false;
-          if (data.status === 404) {
-            this.createMessage("Address not found.");
-          }
-        }, 500);
-      });
+        body: formData
+      })
+        .then(data => data.json())
+        .then(data => {
+          setTimeout(() => {
+            console.log(data);
+            this.loading = false;
+            if (data.status === 404) {
+              this.createMessage("Address not found.");
+            } else {
+              this.createMessage(data.class_name);
+            }
+          });
+        });
     },
 
     createMessage(value) {
       this.message = value;
-      setTimeout(() => {
+
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
         this.message = "";
-      }, 6000);
+      }, MESSAGE_TIME);
     }
   }
 };
 </script>
 
 <style lang="sass">
-@import url('https://fonts.googleapis.com/css?family=Baloo+2&display=swap')
+
 
 .message
-  font-family: 'Baloo 2', cursive
-  font-size: 18px
+  font-size: 14px
+  text-transform: uppercase
 
 .tools
   position: absolute
