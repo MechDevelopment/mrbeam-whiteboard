@@ -13,7 +13,8 @@
     <!-- BOTTOM RIGHT -->
     <div class="tools mr-3 mb-1" :style="right_style">
       <v-btn @click.prevent="clickUpload" class="pa-1" text :loading="loading">
-        Analyze<v-icon>mdi-magnify</v-icon>
+        Analyze
+        <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </div>
 
@@ -91,16 +92,24 @@ export default {
     async clickUpload() {
       this.loading = true;
       const canvasElem = document.getElementById("canvas");
-      const body = canvasElem.toDataURL();
-   
-      await fetch("https://mrbeam-neural.herokuapp.com/predict", {
-        method: "post",
-        body:  JSON.stringify({data: body})
+      const imageBlob = await new Promise(resolve =>
+        canvasElem.toBlob(resolve, "image/png")
+      );
+      const formData = new FormData();
+      formData.append("image", imageBlob);
+
+      const SERVER_URL = "https://mrbeam-neural.herokuapp.com/predict";
+      // const SERVER_URL = "http://httpbin.org/post";
+      // const SERVER_URL = "http://127.0.0.1:5000/predict";
+
+      await fetch(SERVER_URL, {
+        method: "POST",
+        body: formData
       })
         .then(data => data.json())
         .then(data => {
           setTimeout(() => {
-            console.log(data, body);
+            console.log(data);
             this.loading = false;
             if (data.status === 404) {
               this.createMessage("Address not found.");
