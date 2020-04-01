@@ -78,12 +78,20 @@ export default {
     clickPen() {
       this.color_pen = BLACK;
       this.color_eraser = "none";
+      this.$store.commit(
+        "updateCursorStyle",
+        "cursor: url('https://api.iconify.design/mdi-pen.svg?height=26') 1 25, pointer"
+      );
       this.whiteboard.setTool("pen");
     },
 
     clickEraser() {
       this.color_pen = "none";
       this.color_eraser = BLACK;
+      this.$store.commit(
+        "updateCursorStyle",
+        "cursor: url('https://api.iconify.design/mdi-eraser.svg?height=26') 8 25, pointer"
+      );
       this.whiteboard.setTool("eraser");
     },
 

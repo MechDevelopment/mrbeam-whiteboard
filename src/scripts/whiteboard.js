@@ -19,7 +19,7 @@ export default class Whiteboard {
     view.viewSize = new Size(size, size);
 
     let scale = size / last;
-    
+
     const picture = project.activeLayer.children;
     for (let i = 0; i < picture.length; i++) {
       picture[i].position.x *= scale;
@@ -74,11 +74,9 @@ export default class Whiteboard {
     }
   }
 
-  enter(event) {
-    console.log("Enter");
-  }
-
   leave(event) {
-    console.log("Out");
+    if (this.drawing) {
+      this.end();
+    }
   }
 }
